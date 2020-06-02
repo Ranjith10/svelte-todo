@@ -18,8 +18,16 @@
           todoItem: todo,
           active: true
         };
-        todoList = [...todoList, todoItem];
-        console.log({ todoList });
+        todoList = [todoItem, ...todoList];
+        return todoList;
+      }
+      case "toggle-todo": {
+        console.log("called");
+        todoList.forEach(todo => {
+          if (todo.id === action.id) {
+            todo.active = !todo.active;
+          }
+        });
         return todoList;
       }
       default: {
@@ -47,12 +55,12 @@
     align-items: center;
   }
   .todo-input-container > form {
-    width: 550px;
+    width: 40%;
   }
   .todo-list-container {
     display: flex;
     flex-direction: column;
-    width: 550px;
+    width: 40%;
     background: white;
     border-top: 1px solid #e6e6e6;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
@@ -73,6 +81,7 @@
     {#each todoList as todo, index}
       <TodoItem 
         {...todo}
+        on:dispatch = {dispatchTodo}
       />
     {/each}
   </div>
