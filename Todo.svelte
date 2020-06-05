@@ -4,37 +4,31 @@
   let todoList = [];
   let id = 0;
   const handleTodoSubmit = () => {
-    dispatchTodo({
-      type: "add-todo",
-      todo: todo
-    });
+    addTodo(todo);
     todo = "";
   };
-  const dispatchTodo = action => {
-    switch (action.type) {
-      case "add-todo": {
-        let todoItem = {
-          id: id++,
-          todoItem: todo,
-          active: true
-        };
-        todoList = [todoItem, ...todoList];
-        return todoList;
+
+  function addTodo(todo) {
+    let todoItem = {
+      id: id++,
+      todoItem: todo,
+      complete: false
+    };
+    todoList = [todoItem, ...todoList];
+    return todoList;
+  }
+
+  function removeTodo() {}
+
+  function toggleActiveTodo(id) {
+    console.log("asdkjbf");
+    todoList.forEach(todo => {
+      if (todo.id === event.detail.id) {
+        todo.complete = !todo.comlpete;
       }
-      case "toggle-todo": {
-        console.log("called");
-        todoList.forEach(todo => {
-          if (todo.id === action.id) {
-            todo.active = !todo.active;
-          }
-        });
-        return todoList;
-      }
-      default: {
-        return todoList;
-      }
-    }
-  };
+    });
+    return todoList;
+  }
 </script>
 
 <style>
@@ -81,7 +75,7 @@
     {#each todoList as todo, index}
       <TodoItem 
         {...todo}
-        on:dispatch = {dispatchTodo}
+        on:toggle = {toggleActiveTodo}
       />
     {/each}
   </div>

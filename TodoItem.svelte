@@ -1,18 +1,16 @@
 <script>
   import { createEventDispatcher } from "svelte";
-  const dispatch = createEventDispatcher();
-
-  function dispatchTodo() {
-    alert("clicke");
-    dispatch("dispatchTodo", {
-      id: id,
-      type: "toggle-todo"
-    });
-  }
 
   export let todoItem;
   export let id;
-  export let active;
+  export let complete;
+
+  const dispatch = createEventDispatcher();
+
+  function dispatchToggleTodo() {
+    console.log("dskjbgv");
+    dispatch("toggle", { id: id });
+  }
 </script>
 
 <style>
@@ -71,12 +69,12 @@
 <div class="todo-item-container">
   <div class="todo-done-toggle">
     <input 
-      type="checkbox"
+      type=checkbox
       id={`checkbox${id}`}
-      checked={!active}
-      on:change={dispatchTodo(id)}
+      bind:checked={complete}
     >
     <label 
+      on:click={dispatchToggleTodo}
       htmlFor = {`checkbox${id}`}
     />
   </div>
