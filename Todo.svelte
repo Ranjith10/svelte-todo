@@ -20,14 +20,16 @@
 
   function removeTodo() {}
 
-  function toggleActiveTodo(id) {
-    console.log("asdkjbf");
-    todoList.forEach(todo => {
+  function toggleActiveTodo(event) {
+    console.log({ event });
+    let todos = todoList;
+    todos.forEach(todo => {
       if (todo.id === event.detail.id) {
         todo.complete = !todo.comlpete;
       }
     });
-    return todoList;
+    todoList = todos;
+    console.log({ todoList });
   }
 </script>
 

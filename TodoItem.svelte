@@ -8,7 +8,6 @@
   const dispatch = createEventDispatcher();
 
   function dispatchToggleTodo() {
-    console.log("dskjbgv");
     dispatch("toggle", { id: id });
   }
 </script>
