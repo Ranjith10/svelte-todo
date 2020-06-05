@@ -25,7 +25,7 @@
     let todos = todoList;
     todos.forEach(todo => {
       if (todo.id === event.detail.id) {
-        todo.complete = !todo.comlpete;
+        todo.complete = !todo.complete;
       }
     });
     todoList = todos;
