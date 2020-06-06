@@ -3,7 +3,7 @@
 
   export let todoItem;
   export let id;
-  export let complete;
+  export let completed;
 
   const dispatch = createEventDispatcher();
 
@@ -74,7 +74,7 @@
     <input 
       type=checkbox
       id={`checkbox${id}`}
-      bind:checked={complete}
+      bind:checked={completed}
     >
     <label 
       on:click={dispatchToggleTodo}
@@ -83,7 +83,7 @@
   </div>
   <div 
     key={id}
-    class="{complete ? 'todo-item complete' : 'todo-item'}" 
+    class="{completed ? 'todo-item complete' : 'todo-item'}" 
   >
     {todoItem}
   </div>

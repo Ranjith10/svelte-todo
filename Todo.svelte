@@ -5,37 +5,49 @@
   let todo = "";
   let todoList = [];
   let id = 0;
-  const handleTodoSubmit = () => {
+  let currentFilter = "All";
+
+  let handleTodoSubmit = () => {
     addTodo(todo);
     todo = "";
   };
 
-  function addTodo(todo) {
+  let addTodo = todo => {
     if (todo.trim().length > 0) {
       let todoItem = {
         id: id++,
         todoItem: todo,
-        complete: false
+        completed: false
       };
       todoList = [todoItem, ...todoList];
     }
-  }
+  };
 
-  function removeTodo() {}
+  let removeTodo = () => {};
 
-  function toggleActiveTodo(event) {
+  let toggleActiveTodo = event => {
     let todos = todoList;
     todos.forEach(todo => {
       if (todo.id === event.detail.id) {
-        todo.complete = !todo.complete;
+        todo.completed = !todo.completed;
       }
     });
     todoList = todos;
-  }
+  };
 
-  $: activeTodos = todoList.filter(todo => todo.complete === false).length;
-  $: showClearComplete =
-    todoList.filter(todo => todo.complete === true).length > 0;
+  let handleTodoFilter = event => {
+    currentFilter = event.detail.updatedFilter;
+  };
+
+  $: activeTodos = todoList.filter(todo => !todo.completed).length;
+  $: showClearCompleted = todoList.filter(todo => todo.completed).length > 0;
+
+  $: filteredTodos =
+    currentFilter === "All"
+      ? todoList
+      : currentFilter === "Active"
+      ? todoList.filter(todo => !todo.completed)
+      : todoList.filter(todo => todo.completed);
 </script>
 
 <style>
@@ -79,7 +91,7 @@
   </form>
   
   <div class="todo-list-container">
-    {#each todoList as todo, index}
+    {#each filteredTodos as todo, index}
       <TodoItem 
         {...todo}
         on:toggle = {toggleActiveTodo}
@@ -88,9 +100,9 @@
   </div>
   {#if todoList.length > 0}
     <TodoFooter 
-      {...todoList}
       {activeTodos}
-      {showClearComplete}
+      {showClearCompleted}
+      on:handleTodoFilter={handleTodoFilter}
     />
   {/if}
   

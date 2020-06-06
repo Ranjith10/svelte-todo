@@ -1,9 +1,16 @@
 <script>
   import { createEventDispatcher } from "svelte";
 
-  export let todoList;
+  let dispatch = createEventDispatcher();
+
+  let handleTodoFilter = filter => {
+    dispatch("handleTodoFilter", {
+      updatedFilter: filter
+    });
+  };
+
   export let activeTodos;
-  export let showClearComplete;
+  export let showClearCompleted;
 </script>
 
 <style>
@@ -48,11 +55,11 @@
     {activeTodos} items left
   </div>
   <div class="todo-filter-container">
-    <div>All</div>
-    <div>Active</div>
-    <div>Completed</div>
+    <div on:click={() => handleTodoFilter("All")}>All</div>
+    <div on:click={() => handleTodoFilter("Active")}>Active</div>
+    <div on:click={() => handleTodoFilter("Complete")}>Completed</div>
   </div>
-  {#if showClearComplete}
+  {#if showClearCompleted}
       <div class="todo-clear-completed-msg">
         Clear Completed
       </div>
