@@ -63,6 +63,10 @@
     transform: rotate(-45deg);
     width: 12px;
   }
+  .todo-item.complete {
+    color: #8d8d8d;
+    text-decoration: line-through;
+  }
 </style>
 
 <div class="todo-item-container">
@@ -79,7 +83,7 @@
   </div>
   <div 
     key={id}
-    class="todo-item" 
+    class="{complete ? 'todo-item complete' : 'todo-item'}" 
   >
     {todoItem}
   </div>

@@ -1,5 +1,7 @@
 <script>
   import TodoItem from "./TodoItem.svelte";
+  import TodoFooter from "./TodoFooter.svelte";
+
   let todo = "";
   let todoList = [];
   let id = 0;
@@ -9,19 +11,19 @@
   };
 
   function addTodo(todo) {
-    let todoItem = {
-      id: id++,
-      todoItem: todo,
-      complete: false
-    };
-    todoList = [todoItem, ...todoList];
-    return todoList;
+    if (todo.trim().length > 0) {
+      let todoItem = {
+        id: id++,
+        todoItem: todo,
+        complete: false
+      };
+      todoList = [todoItem, ...todoList];
+    }
   }
 
   function removeTodo() {}
 
   function toggleActiveTodo(event) {
-    console.log({ event });
     let todos = todoList;
     todos.forEach(todo => {
       if (todo.id === event.detail.id) {
@@ -29,7 +31,6 @@
       }
     });
     todoList = todos;
-    console.log({ todoList });
   }
 </script>
 
@@ -81,4 +82,8 @@
       />
     {/each}
   </div>
+  {#if todoList.length > 0}
+    <TodoFooter />
+  {/if}
+  
 </div>
