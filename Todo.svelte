@@ -32,6 +32,10 @@
     });
     todoList = todos;
   }
+
+  $: activeTodos = todoList.filter(todo => todo.complete === false).length;
+  $: showClearComplete =
+    todoList.filter(todo => todo.complete === true).length > 0;
 </script>
 
 <style>
@@ -83,7 +87,11 @@
     {/each}
   </div>
   {#if todoList.length > 0}
-    <TodoFooter />
+    <TodoFooter 
+      {...todoList}
+      {activeTodos}
+      {showClearComplete}
+    />
   {/if}
   
 </div>
