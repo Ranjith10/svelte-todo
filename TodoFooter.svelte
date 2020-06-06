@@ -9,6 +9,7 @@
     });
   };
 
+  export let currentFilter;
   export let activeTodos;
   export let showClearCompleted;
 </script>
@@ -35,10 +36,14 @@
   .todo-filter-container {
     display: flex;
     width: 59%;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
   .todo-filter-container > div {
     cursor: pointer;
+    padding: 3px 5px;
+  }
+  .todo-filter-container > div.active {
+    border: 1px solid #8d8d8d;
   }
   .todo-clear-completed-msg {
     display: flex;
@@ -55,9 +60,24 @@
     {activeTodos} items left
   </div>
   <div class="todo-filter-container">
-    <div on:click={() => handleTodoFilter("All")}>All</div>
-    <div on:click={() => handleTodoFilter("Active")}>Active</div>
-    <div on:click={() => handleTodoFilter("Complete")}>Completed</div>
+    <div 
+      on:click={() => handleTodoFilter("All")}
+      class:active="{currentFilter === "All"}"
+    >
+      All
+    </div>
+    <div
+      on:click={() => handleTodoFilter("Active")}
+      class:active="{currentFilter === "Active"}"
+    >
+      Active
+    </div>
+    <div 
+      on:click={() => handleTodoFilter("Completed")}
+      class:active="{currentFilter === "Completed"}"
+    >
+      Completed
+    </div>
   </div>
   {#if showClearCompleted}
       <div class="todo-clear-completed-msg">

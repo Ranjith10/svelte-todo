@@ -102,6 +102,7 @@
     <TodoFooter 
       {activeTodos}
       {showClearCompleted}
+      {currentFilter}
       on:handleTodoFilter={handleTodoFilter}
     />
   {/if}
