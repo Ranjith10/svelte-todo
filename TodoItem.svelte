@@ -7,12 +7,19 @@
 
   const dispatch = createEventDispatcher();
 
-  function dispatchToggleTodo() {
+  let dispatchToggleTodo = () => {
     dispatch("toggle", {
       action: "toggle-completed-status",
       id: id
     });
-  }
+  };
+
+  let deleteTodo = () => {
+    dispatch("deleteTodo", {
+      action: "delete-todo",
+      id: id
+    });
+  };
 </script>
 
 <style>
@@ -26,7 +33,7 @@
     height: 50px;
     justify-content: flex-start;
     align-items: center;
-    width: calc(100% - 60px);
+    width: calc(100% - 90px);
   }
   .todo-done-toggle {
     position: relative;
@@ -70,6 +77,17 @@
     color: #8d8d8d;
     text-decoration: line-through;
   }
+  .delete-todo {
+    display: none;
+    width: 30px;
+    cursor: pointer;
+    color: #ccc;
+  }
+  .todo-item-container:hover .delete-todo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
 
 <div class="todo-item-container">
@@ -89,5 +107,11 @@
     class="{completed ? 'todo-item complete' : 'todo-item'}" 
   >
     {todoItem}
+  </div>
+  <div 
+    class = "delete-todo"
+    on:click = {deleteTodo}
+  >
+     &#10006;
   </div>
 </div>

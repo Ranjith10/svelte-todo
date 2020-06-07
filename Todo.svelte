@@ -23,6 +23,9 @@
         return;
       }
       case "delete-todo": {
+        let id = event.detail.id;
+        todoList = todoList.filter(todo => todo.id !== id);
+        return todoList;
       }
       case "toggle-completed-status": {
         let todos = todoList;
@@ -83,6 +86,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
   }
   .todo-input-container > form {
     width: 40%;
@@ -112,6 +116,7 @@
       <TodoItem 
         {...todo}
         on:toggle = {handleTodoAction}
+        on:deleteTodo = {handleTodoAction}
       />
     {/each}
   </div>
