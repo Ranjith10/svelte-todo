@@ -1,4 +1,6 @@
 This is a starter APP for Svelte JS - Todo application
+Demo - https://csb-igero-a0k9qwdly.now.sh/
+
 # svelte app
 
 *Note that you will need to have [Node.js](https://nodejs.org) installed.*
