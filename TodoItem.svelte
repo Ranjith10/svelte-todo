@@ -8,7 +8,10 @@
   const dispatch = createEventDispatcher();
 
   function dispatchToggleTodo() {
-    dispatch("toggle", { id: id });
+    dispatch("toggle", {
+      action: "toggle-completed-status",
+      id: id
+    });
   }
 </script>
 

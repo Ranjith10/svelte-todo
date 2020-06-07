@@ -7,32 +7,47 @@
   let id = 0;
   let currentFilter = "All";
 
-  let handleTodoSubmit = () => {
-    addTodo(todo);
-    todo = "";
-  };
-
-  let addTodo = todo => {
-    if (todo.trim().length > 0) {
-      let todoItem = {
-        id: id++,
-        todoItem: todo,
-        completed: false
-      };
-      todoList = [todoItem, ...todoList];
+  let handleTodoAction = event => {
+    let action = event.detail ? event.detail.action : event.action;
+    switch (action) {
+      case "add-todo": {
+        if (todo.trim().length > 0) {
+          let todoItem = {
+            id: id++,
+            todoItem: todo,
+            completed: false
+          };
+          todoList = [todoItem, ...todoList];
+          return todoList;
+        }
+        return;
+      }
+      case "delete-todo": {
+      }
+      case "toggle-completed-status": {
+        let todos = todoList;
+        let id = event.detail.id;
+        todos.forEach(todo => {
+          if (todo.id === id) {
+            todo.completed = !todo.completed;
+          }
+        });
+        todoList = todos;
+        return todoList;
+      }
+      case "clear-completed-todo": {
+      }
+      default: {
+        return todoList;
+      }
     }
   };
 
-  let removeTodo = () => {};
-
-  let toggleActiveTodo = event => {
-    let todos = todoList;
-    todos.forEach(todo => {
-      if (todo.id === event.detail.id) {
-        todo.completed = !todo.completed;
-      }
+  let handleTodoSubmit = () => {
+    handleTodoAction({
+      action: "add-todo"
     });
-    todoList = todos;
+    todo = "";
   };
 
   let handleTodoFilter = event => {
@@ -94,7 +109,7 @@
     {#each filteredTodos as todo, index}
       <TodoItem 
         {...todo}
-        on:toggle = {toggleActiveTodo}
+        on:toggle = {handleTodoAction}
       />
     {/each}
   </div>
