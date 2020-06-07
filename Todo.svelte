@@ -36,6 +36,8 @@
         return todoList;
       }
       case "clear-completed-todo": {
+        todoList = todoList.filter(todo => !todo.completed);
+        return todoList;
       }
       default: {
         return todoList;
@@ -118,7 +120,8 @@
       {activeTodos}
       {showClearCompleted}
       {currentFilter}
-      on:handleTodoFilter={handleTodoFilter}
+      on:handleTodoFilter = {handleTodoFilter}
+      on:clearCompletedTodo = {handleTodoAction}
     />
   {/if}
   

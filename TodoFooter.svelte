@@ -9,6 +9,12 @@
     });
   };
 
+  let clearCompletedTodo = () => {
+    dispatch("clearCompletedTodo", {
+      action: "clear-completed-todo"
+    });
+  };
+
   export let currentFilter;
   export let activeTodos;
   export let showClearCompleted;
@@ -80,7 +86,10 @@
     </div>
   </div>
   {#if showClearCompleted}
-      <div class="todo-clear-completed-msg">
+      <div 
+        class="todo-clear-completed-msg"
+        on:click = {clearCompletedTodo}
+      >
         Clear Completed
       </div>
     {/if}
